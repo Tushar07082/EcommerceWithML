@@ -10,6 +10,7 @@ const NewProduct = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
 
   const [name, setName] = useState<string>("");
+  const [desc, setDesc] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [price, setPrice] = useState<number>(1000);
   const [stock, setStock] = useState<number>(1);
@@ -38,11 +39,12 @@ const NewProduct = () => {
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!name || !price || stock < 0 || !category || !photo) return;
+    if (!name || !price || stock < 0 || !category || !photo || !desc) return;
 
     const formData = new FormData();
 
     formData.set("name", name);
+    formData.set("desc", desc);
     formData.set("price", price.toString());
     formData.set("stock", stock.toString());
     formData.set("photo", photo);
@@ -69,6 +71,16 @@ const NewProduct = () => {
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div>
+              <label>Description</label>
+              <input
+                required
+                type="text"
+                placeholder="Description"
+                value={desc}
+                onChange={(e) => setDesc(e.target.value)}
               />
             </div>
             <div>

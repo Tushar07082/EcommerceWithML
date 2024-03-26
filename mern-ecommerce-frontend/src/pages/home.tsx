@@ -13,6 +13,7 @@ const Home = () => {
   const { data, isLoading, isError } = useLatestProductsQuery("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const dispatch = useDispatch();
+  console.log(data)
 
   useEffect(() => {
     const category = Cookies.get("selectedCategory");
@@ -33,9 +34,7 @@ const Home = () => {
     <div className="home">
       <section></section>
 
-      <h1>
-        Similar Products
-      </h1>
+      <h1>Similar Products</h1>
 
       <main>
         {isLoading ? (
@@ -84,8 +83,6 @@ const Home = () => {
           ))
         )}
       </main>
-
-      
     </div>
   );
 };

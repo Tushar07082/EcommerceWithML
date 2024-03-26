@@ -20,10 +20,11 @@ const Productmanagement = () => {
 
   const { data, isLoading, isError } = useProductDetailsQuery(params.id!);
 
-  const { price, photo, name, stock, category } = data?.product || {
+  const { price, photo, name, stock, category , desc} = data?.product || {
     photo: "",
     category: "",
     name: "",
+    desc: "",
     stock: 0,
     price: 0,
   };
@@ -31,6 +32,7 @@ const Productmanagement = () => {
   const [priceUpdate, setPriceUpdate] = useState<number>(price);
   const [stockUpdate, setStockUpdate] = useState<number>(stock);
   const [nameUpdate, setNameUpdate] = useState<string>(name);
+  const [descUpdate, setDescUpdate] = useState<string>(desc);
   const [categoryUpdate, setCategoryUpdate] = useState<string>(category);
   const [photoUpdate, setPhotoUpdate] = useState<string>("");
   const [photoFile, setPhotoFile] = useState<File>();
@@ -60,6 +62,7 @@ const Productmanagement = () => {
     const formData = new FormData();
 
     if (nameUpdate) formData.set("name", nameUpdate);
+    if (descUpdate) formData.set("desc", descUpdate);
     if (priceUpdate) formData.set("price", priceUpdate.toString());
     if (stockUpdate !== undefined)
       formData.set("stock", stockUpdate.toString());
@@ -88,6 +91,7 @@ const Productmanagement = () => {
     if (data) {
       setNameUpdate(data.product.name);
       setPriceUpdate(data.product.price);
+      setDescUpdate(data.product.desc);
       setStockUpdate(data.product.stock);
       setCategoryUpdate(data.product.category);
     }
@@ -127,6 +131,15 @@ const Productmanagement = () => {
                     placeholder="Name"
                     value={nameUpdate}
                     onChange={(e) => setNameUpdate(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label>Description</label>
+                  <input
+                    type="text"
+                    placeholder="description"
+                    value={descUpdate}
+                    onChange={(e) => setDescUpdate(e.target.value)}
                   />
                 </div>
                 <div>
