@@ -22,7 +22,7 @@ const CartItem = ({
     <div className="cart-item">
       <img src={`${server}/${photo}`} alt={name} />
       <article>
-        <Link to={`/product/${productId}`}>{name}</Link>
+        <Link to={`/order/${productId}`}>{name}</Link>
         <span>₹{price}</span>
       </article>
 

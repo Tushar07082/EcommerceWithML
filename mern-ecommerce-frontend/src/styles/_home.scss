@@ -46,18 +46,11 @@
   text-align: center;
   width: 100%;
   margin: 20px;
-  height: 340px;
   transition: all 0.3s ease;
 
   &:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-
-  &:hover > div {
-    opacity: 1;
-  }
-  
-
 
   .product-wrapper{
     display: flex;
@@ -69,24 +62,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  }
-
-  > div {
-    button {
-      @include flex;
-      @include square(3rem);
-      border-radius: 100%;
-      border: none;
-      margin-left: 6.5rem;
-      background-color: $color3;
-      cursor: pointer;
-      color: $color1;
-      font-size: 1.1rem;
-      transition: all 0.3s;
-      &:hover {
-        rotate: 20deg;
-      }
-    }
   }
 
   img {
@@ -113,7 +88,6 @@
 
   .product-desc{
     text-align: left;
-    margin-left: 10px;
   }
 
   .link {

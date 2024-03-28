@@ -27,11 +27,6 @@ const schema = new mongoose.Schema(
       required: [true, "Please enter Category"],
       trim: true,
     },
-    subcategory: {
-      type: String,
-      required: [true, "Please enter Sub Category"],
-      trim: true,
-    },
   },
   {
     timestamps: true,

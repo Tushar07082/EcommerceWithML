@@ -12,7 +12,6 @@ const NewProduct = () => {
   const [name, setName] = useState<string>("");
   const [desc, setDesc] = useState<string>("");
   const [category, setCategory] = useState<string>("");
-  const [subcategory, setSubCategory] = useState<string>("");
   const [price, setPrice] = useState<number>(1000);
   const [stock, setStock] = useState<number>(1);
   const [photoPrev, setPhotoPrev] = useState<string>("");
@@ -40,7 +39,7 @@ const NewProduct = () => {
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!name || !price || stock < 0 || !category || !photo || !desc || !subcategory) return;
+    if (!name || !price || stock < 0 || !category || !photo || !desc) return;
 
     const formData = new FormData();
 
@@ -50,7 +49,6 @@ const NewProduct = () => {
     formData.set("stock", stock.toString());
     formData.set("photo", photo);
     formData.set("category", category);
-    formData.set("subcategory", subcategory);
 
     const res = await newProduct({ id: user?._id!, formData });
     console.log(res);
@@ -111,19 +109,9 @@ const NewProduct = () => {
               <input
                 required
                 type="text"
-                placeholder="eg. appliance"
+                placeholder="eg. laptop, camera etc"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-              />
-            </div>
-            <div>
-              <label>Subcategory</label>
-              <input
-                required
-                type="text"
-                placeholder="eg. air conditioner"
-                value={subcategory}
-                onChange={(e) => setSubCategory(e.target.value)}
               />
             </div>
 

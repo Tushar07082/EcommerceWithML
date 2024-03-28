@@ -83,13 +83,13 @@ export const getSingleProduct = TryCatch(async (req, res, next) => {
 
 export const newProduct = TryCatch(
   async (req: Request<{}, {}, NewProductRequestBody>, res, next) => {
-    const { name, price, stock, category, desc, subcategory } = req.body;
+    const { name, price, stock, category, desc } = req.body;
     const photo = req.file;
     
     console.log("hi")
     if (!photo) return next(new ErrorHandler("Please add Photo", 400));
 
-    if (!name || !price || !stock || !category || !desc || !subcategory) {
+    if (!name || !price || !stock || !category || !desc) {
       rm(photo.path, () => {
         console.log("Deleted");
       });
@@ -102,7 +102,6 @@ export const newProduct = TryCatch(
       price,
       stock,
       desc,
-      subcategory: subcategory.toLowerCase(),
       category: category.toLowerCase(),
       photo: photo.path,
     });
@@ -118,7 +117,7 @@ export const newProduct = TryCatch(
 
 export const updateProduct = TryCatch(async (req, res, next) => {
   const { id } = req.params;
-  const { name, price, stock, category, desc, subcategory } = req.body;
+  const { name, price, stock, category, desc } = req.body;
   const photo = req.file;
   const product = await Product.findById(id);
 
@@ -136,7 +135,6 @@ export const updateProduct = TryCatch(async (req, res, next) => {
   if (desc) product.desc = desc;
   if (stock) product.stock = stock;
   if (category) product.category = category;
-  if (subcategory) product.subcategory = subcategory;
 
   await product.save();
 

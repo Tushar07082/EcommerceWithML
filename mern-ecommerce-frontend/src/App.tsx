@@ -66,6 +66,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/order/:id" element={<OrderDetails />} />
           <Route path="/cart" element={<Cart />} />
           {/* Not logged In Route */}
           <Route
@@ -82,7 +83,6 @@ const App = () => {
           >
             <Route path="/shipping" element={<Shipping />} />
             <Route path="/orders" element={<Orders />} />
-            <Route path="/order/:id" element={<OrderDetails />} />
             <Route path="/pay" element={<Checkout />} />
           </Route>
           {/* Admin Routes */}

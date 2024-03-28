@@ -20,12 +20,11 @@ const Productmanagement = () => {
 
   const { data, isLoading, isError } = useProductDetailsQuery(params.id!);
 
-  const { price, photo, name, stock, category , desc, subcategory} = data?.product || {
+  const { price, photo, name, stock, category , desc} = data?.product || {
     photo: "",
     category: "",
     name: "",
     desc: "",
-    subcategory: "",
     stock: 0,
     price: 0,
   };
@@ -35,7 +34,6 @@ const Productmanagement = () => {
   const [nameUpdate, setNameUpdate] = useState<string>(name);
   const [descUpdate, setDescUpdate] = useState<string>(desc);
   const [categoryUpdate, setCategoryUpdate] = useState<string>(category);
-  const [subcategoryUpdate, setSubCategoryUpdate] = useState<string>(subcategory);
   const [photoUpdate, setPhotoUpdate] = useState<string>("");
   const [photoFile, setPhotoFile] = useState<File>();
 
@@ -70,7 +68,6 @@ const Productmanagement = () => {
       formData.set("stock", stockUpdate.toString());
     if (photoFile) formData.set("photo", photoFile);
     if (categoryUpdate) formData.set("category", categoryUpdate);
-    if (subcategoryUpdate) formData.set("subcategory", subcategoryUpdate);
 
     const res = await updateProduct({
       formData,
@@ -97,7 +94,6 @@ const Productmanagement = () => {
       setDescUpdate(data.product.desc);
       setStockUpdate(data.product.stock);
       setCategoryUpdate(data.product.category);
-      setSubCategoryUpdate(data.product.subcategory);
     }
   }, [data]);
 
@@ -169,18 +165,9 @@ const Productmanagement = () => {
                   <label>Category</label>
                   <input
                     type="text"
-                    placeholder="eg. appliance etc"
+                    placeholder="eg. laptop, camera etc"
                     value={categoryUpdate}
                     onChange={(e) => setCategoryUpdate(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>Subcategory</label>
-                  <input
-                    type="text"
-                    placeholder="eg. air conditioner etc"
-                    value={subcategoryUpdate}
-                    onChange={(e) => setSubCategoryUpdate(e.target.value)}
                   />
                 </div>
 
