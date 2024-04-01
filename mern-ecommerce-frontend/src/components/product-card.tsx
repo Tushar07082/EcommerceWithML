@@ -3,6 +3,7 @@ import { RootState, server } from "../redux/store";
 import { CartItem } from "../types/types";
 import { useAddProductViewedMutation } from "../redux/api/userAPI";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 type ProductsProps = {
   productId: string;
@@ -41,6 +42,7 @@ const ProductCard = ({
     
   }
   return (
+    <Link to={`/order/${productId}`} key={productId}>
     <div className="product-card" onClick={handleClick}>
       <img src={`${server}/${photo}`} alt={name} />
       <p>{name}</p>
@@ -56,6 +58,7 @@ const ProductCard = ({
         </button>
       </div>
     </div>
+    </Link>
   );
 };
 
