@@ -21,7 +21,7 @@ export const getlatestProducts = TryCatch(async (req, res, next) => {
   if (myCache.has("latest-products"))
     products = JSON.parse(myCache.get("latest-products") as string);
   else {
-    products = await Product.find({}).sort({ createdAt: -1 }).limit(5);
+    products = await Product.find({}).sort({ createdAt: -1 }).limit(100);
     myCache.set("latest-products", JSON.stringify(products));
   }
 
@@ -98,13 +98,13 @@ export const getSingleProduct = TryCatch(async (req, res, next) => {
 
 export const newProduct = TryCatch(
   async (req: Request<{}, {}, NewProductRequestBody>, res, next) => {
-    const { name, price, stock, category } = req.body;
+    const { name, price, stock, category, desc } = req.body;
     const photo = req.file;
     
     console.log("hi")
     if (!photo) return next(new ErrorHandler("Please add Photo", 400));
 
-    if (!name || !price || !stock || !category) {
+    if (!name || !price || !stock || !category || !desc) {
       rm(photo.path, () => {
         console.log("Deleted");
       });
@@ -116,6 +116,7 @@ export const newProduct = TryCatch(
       name,
       price,
       stock,
+      desc,
       category: category.toLowerCase(),
       photo: photo.path,
     });
@@ -131,7 +132,7 @@ export const newProduct = TryCatch(
 
 export const updateProduct = TryCatch(async (req, res, next) => {
   const { id } = req.params;
-  const { name, price, stock, category } = req.body;
+  const { name, price, stock, category, desc } = req.body;
   const photo = req.file;
   const product = await Product.findById(id);
 
@@ -146,6 +147,7 @@ export const updateProduct = TryCatch(async (req, res, next) => {
 
   if (name) product.name = name;
   if (price) product.price = price;
+  if (desc) product.desc = desc;
   if (stock) product.stock = stock;
   if (category) product.category = category;
 

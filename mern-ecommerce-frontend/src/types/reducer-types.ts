@@ -1,4 +1,4 @@
-import { CartItem, Product, ShippingInfo, User } from "./types";
+import { CartItem, ShippingInfo, User } from "./types";
 
 export interface UserReducerInitialState {
   user: User | null;
