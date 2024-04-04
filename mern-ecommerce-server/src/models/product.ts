@@ -10,6 +10,10 @@ const schema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter Photo"],
     },
+    desc: {
+      type: String,
+      required: [true, "Please enter Product Description"],
+    },
     price: {
       type: Number,
       required: [true, "Please enter Price"],

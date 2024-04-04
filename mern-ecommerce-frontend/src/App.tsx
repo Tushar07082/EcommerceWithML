@@ -60,7 +60,6 @@ const App = () => {
     });
   }, []);
 
-
   return loading ? (
     <Loader />
   ) : (
@@ -71,6 +70,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/order/:id" element={<OrderDetails />} />
           <Route path="/cart" element={<Cart />} />
           {/* Not logged In Route */}
           <Route
