@@ -7,6 +7,7 @@ import {
   UserResponse,
 } from "../../types/api-types";
 import { RevenueResponse, User } from "../../types/types";
+import { User, UserAndProduct } from "../../types/types";
 
 export const userAPI = createApi({
   reducerPath: "userApi",
@@ -36,10 +37,17 @@ export const userAPI = createApi({
       query: (id) => `all?id=${id}`,
       providesTags: ["users"],
     }),
-    revenue: builder.query<RevenueResponse, string>({
-      query: (id) => `revenueData?id=${id}`,
-      providesTags: ["users"],
-    })
+    // revenue: builder.query<RevenueResponse, string>({
+    //   query: (id) => `revenueData?id=${id}`,
+    //   providesTags: ["users"],
+    // }),
+    addProductViewed: builder.mutation<MessageResponse, UserAndProduct>({
+      query: (data) => ({
+        url: "addProductViewed",
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -55,5 +63,5 @@ export const getUser = async (id: string) => {
   }
 };
 
-export const { useLoginMutation, useAllUsersQuery, useDeleteUserMutation, useRevenueQuery } =
+export const { useLoginMutation, useAllUsersQuery, useDeleteUserMutation,useAddProductViewedMutation,/* useRevenueQuery */ } =
   userAPI;

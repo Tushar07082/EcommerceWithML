@@ -14,8 +14,15 @@ export type Product = {
   stock: number;
   category: string;
   photo: string;
+  desc: string;
   _id: string;
 };
+
+export type UserAndProduct = {
+  _id: string;
+  _product_id: string;
+};
+
 
 export type ShippingInfo = {
   address: string;

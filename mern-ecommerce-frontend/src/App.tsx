@@ -51,9 +51,13 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(user?.name);
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const data = await getUser(user.uid);
+        const data: any = await getUser(user.uid);
+        if(data.response?.status! == 400){
+          dispatch(userNotExist());
+        }
         dispatch(userExist(data.user));
       } else dispatch(userNotExist());
     });
@@ -69,6 +73,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/order/:id" element={<OrderDetails />} />
           <Route path="/cart" element={<Cart />} />
           {/* Not logged In Route */}
           <Route

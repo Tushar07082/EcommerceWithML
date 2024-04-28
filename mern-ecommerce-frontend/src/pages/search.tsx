@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import ProductCard from "../components/product-card";
 import {
   useCategoriesQuery,
@@ -12,6 +13,33 @@ import { addToCart } from "../redux/reducer/cartReducer";
 import { useDispatch } from "react-redux";
 
 const Search = () => {
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("");
+  const [maxPrice, setMaxPrice] = useState(100000);
+  const [category, setCategory] = useState("");
+  const [page, setPage] = useState(1);
+
+  const dispatch = useDispatch();
+
+  // Function to handle adding a category to the cookie
+  const handleAddCategoryToCookie = (value: string) => {
+    Cookies.set("selectedCategory", value);
+  };
+
+  // Function to handle retrieving the category from the cookie
+  const handleRetrieveCategoryFromCookie = () => {
+    const selectedCategory = Cookies.get("selectedCategory");
+    
+    if (selectedCategory) {
+      setCategory(selectedCategory);
+    }
+  };
+
+  useEffect(() => {
+    // When the component mounts, retrieve the category from the cookie
+    handleRetrieveCategoryFromCookie();
+  }, []); // Empty dependency array ensures this effect runs only once when the component mounts
+
   const {
     data: categoriesResponse,
     isLoading: loadingCategories,
@@ -19,11 +47,6 @@ const Search = () => {
     error,
   } = useCategoriesQuery("");
 
-  const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [maxPrice, setMaxPrice] = useState(100000);
-  const [category, setCategory] = useState("");
-  const [page, setPage] = useState(1);
 
   const {
     isLoading: productLoading,
@@ -38,7 +61,6 @@ const Search = () => {
     price: maxPrice,
   });
 
-  const dispatch = useDispatch();
 
   const addToCartHandler = (cartItem: CartItem) => {
     if (cartItem.stock < 1) return toast.error("Out of Stock");
@@ -81,11 +103,14 @@ const Search = () => {
           />
         </div>
 
-        <div>
+         <div>
           <h4>Category</h4>
           <select
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => {
+              setCategory(e.target.value);
+              handleAddCategoryToCookie(e.target.value); // Update the cookie when category is changed
+            }}
           >
             <option value="">ALL</option>
             {!loadingCategories &&

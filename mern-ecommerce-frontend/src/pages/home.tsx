@@ -1,16 +1,34 @@
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Skeleton } from "../components/loader";
 import ProductCard from "../components/product-card";
-import { useLatestProductsQuery } from "../redux/api/productAPI";
+import { useLatestProductsQuery,useRecommendedProductsQuery } from "../redux/api/productAPI";
 import { addToCart } from "../redux/reducer/cartReducer";
 import { CartItem } from "../types/types";
+import { RootState } from "../redux/store";
 
 const Home = () => {
+  const { user } = useSelector(
+    (state: RootState) => state.userReducer
+  );
+
   const { data, isLoading, isError } = useLatestProductsQuery("");
+  const recommendedData = useRecommendedProductsQuery(user?._id!);
+  console.log("recommended Data",recommendedData);
+    
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const category = Cookies.get("selectedCategory");
+    if (category) {
+      setSelectedCategory(category);
+    }
+  }, []);
 
   const addToCartHandler = (cartItem: CartItem) => {
     if (cartItem.stock < 1) return toast.error("Out of Stock");
@@ -23,6 +41,38 @@ const Home = () => {
   return (
     <div className="home">
       <section></section>
+      {
+        user 
+        &&
+          <h1>
+            Similar Products
+          </h1>
+
+      }
+      
+
+      <main>
+        {isLoading ? (
+          <Skeleton width="80vw" />
+        ) : (
+          data?.products
+            .filter(
+              (product) =>
+                selectedCategory && product.category === selectedCategory
+            )
+            .map((product) => (
+              <ProductCard
+                key={product._id}
+                productId={product._id}
+                name={product.name}
+                price={product.price}
+                stock={product.stock}
+                handler={addToCartHandler}
+                photo={product.photo}
+              />
+            ))
+        )}
+      </main>
 
       <h1>
         Latest Products
@@ -48,6 +98,37 @@ const Home = () => {
           ))
         )}
       </main>
+      {
+      user
+      &&
+      <div>
+        <h1>
+        Recommended Products
+      </h1>
+
+      <main>
+        {isLoading ? (
+          <Skeleton width="80vw" />
+        ) : (
+          recommendedData?.data?.products.map((i) => (
+            <ProductCard
+              key={i._id}
+              productId={i._id}
+              name={i.name}
+              price={i.price}
+              stock={i.stock}
+              handler={addToCartHandler}
+              photo={i.photo}
+            />
+          ))
+        )}
+      </main>
+      </div>
+      }
+
+      
+
+      
     </div>
   );
 };

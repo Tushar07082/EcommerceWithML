@@ -68,7 +68,7 @@ const Header = ({ user }: PropsType) => {
           <FaSignInAlt />
         </Link>
       )}
-    </nav>
+    </nav> 
   );
 };
 

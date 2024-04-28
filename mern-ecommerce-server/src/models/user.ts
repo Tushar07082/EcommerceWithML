@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 import { RevenueData } from "../types/types.js";
+import { Product } from "../types/types.js";
 
 interface IUser extends Document {
   _id: string;
@@ -13,6 +14,8 @@ interface IUser extends Document {
   createdAt: Date;
   updatedAt: Date;
   monthlyData: RevenueData;
+  productViewed: Map<string, number>; 
+  recommendedProducts: Array<Product>;
   //   Virtual Attribute
   age: number;
 }
@@ -53,17 +56,27 @@ const schema = new mongoose.Schema(
     },
     revenueData: {
       type: Object,
+    },
+    productViewed: {
+        type: Map,
+        of: Number,
+        default: {}
+    },
+    recommendedProducts: {
+        type: Array,
+        default: []
     }
   },
   {
     timestamps: true,
   }
+  
 );
 
 schema.virtual("age").get(function () {
   const today = new Date();
-  const dob = this.dob;
-  let age = today.getFullYear() - dob.getFullYear();
+  const dob:any = this.dob;
+  let age:any = today.getFullYear() - dob.getFullYear();
 
   if (
     today.getMonth() < dob.getMonth() ||

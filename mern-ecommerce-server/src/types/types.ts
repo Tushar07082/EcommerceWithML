@@ -14,6 +14,8 @@ export interface NewProductRequestBody {
   category: string;
   price: number;
   stock: number;
+  desc: string;
+
 }
 type monthlyData ={
   month: string
@@ -27,6 +29,7 @@ export type RevenueData= {
   totalExpenses: string;
   monthlyData: Array<monthlyData>;
 }
+  
 
 export type ControllerType = (
   req: Request,
@@ -63,6 +66,7 @@ export type InvalidateCacheProps = {
 export type OrderItemType = {
   name: string;
   photo: string;
+  desc: string;
   price: number;
   quantity: number;
   productId: string;
@@ -85,4 +89,19 @@ export interface NewOrderRequestBody {
   discount: number;
   total: number;
   orderItems: OrderItemType[];
-}
+};
+
+export interface NewProductViewedRequestBody{
+  _id: string;
+  _product_id: string;
+};
+
+export type Product = {
+  name: string;
+  price: number;
+  stock: number;
+  category: string;
+  photo: string;
+  _id: string;
+};
+

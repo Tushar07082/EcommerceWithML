@@ -5,6 +5,7 @@ import {
   getAdminProducts,
   getAllCategories,
   getAllProducts,
+  getRecommendedProducts,
   getSingleProduct,
   getlatestProducts,
   newProduct,
@@ -29,6 +30,8 @@ app.get("/categories", getAllCategories);
 //To get all Products   - /api/v1/product/admin-products
 app.get("/admin-products", adminOnly, getAdminProducts);
 
+
+app.get('/recommendedProducts',getRecommendedProducts);
 // To get, update, delete Product
 app
   .route("/:id")

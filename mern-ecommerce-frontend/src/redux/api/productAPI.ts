@@ -60,6 +60,10 @@ export const productAPI = createApi({
       }),
       invalidatesTags: ["product"],
     }),
+    recommendedProducts: builder.query<AllProductsResponse,string>({
+      query: (id) =>  `recommendedProducts?id=${id}`,
+      providesTags: ["product"],
+    }),
 
     updateProduct: builder.mutation<MessageResponse, UpdateProductRequest>({
       query: ({ formData, userId, productId }) => ({
@@ -89,4 +93,5 @@ export const {
   useProductDetailsQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useRecommendedProductsQuery,
 } = productAPI;
