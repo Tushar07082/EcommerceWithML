@@ -26,6 +26,9 @@ const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const Products = lazy(() => import("./pages/admin/products"));
 const Customers = lazy(() => import("./pages/admin/customers"));
 const Transaction = lazy(() => import("./pages/admin/transaction"));
+
+const Predictions = lazy(() => import("./pages/admin/predictions"));
+
 const Barcharts = lazy(() => import("./pages/admin/charts/barcharts"));
 const Piecharts = lazy(() => import("./pages/admin/charts/piecharts"));
 const Linecharts = lazy(() => import("./pages/admin/charts/linecharts"));
@@ -104,6 +107,9 @@ const App = () => {
             <Route path="/admin/product" element={<Products />} />
             <Route path="/admin/customer" element={<Customers />} />
             <Route path="/admin/transaction" element={<Transaction />} />
+            
+            <Route path="/admin/predictions" element={<Predictions />} />
+            
             {/* Charts */}
             <Route path="/admin/chart/bar" element={<Barcharts />} />
             <Route path="/admin/chart/pie" element={<Piecharts />} />
