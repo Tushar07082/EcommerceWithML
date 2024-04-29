@@ -42,9 +42,9 @@ const Home = () => {
     <div className="home">
       <section></section>
 
-      <h1>
+      {selectedCategory && <h1>
         Similar Products
-      </h1>
+      </h1>}
 
       <main>
         {isLoading ? (
