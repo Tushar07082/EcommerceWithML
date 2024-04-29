@@ -48,8 +48,9 @@ const Home = () => {
             Similar Products
           </h1>
 
-      }
-      
+      {selectedCategory && <h1>
+        Similar Products
+      </h1>}
 
       <main>
         {isLoading ? (
