@@ -41,14 +41,10 @@ const Home = () => {
   return (
     <div className="home">
       <section></section>
-      {
-        user 
-        &&
-          <h1>
-            Similar Products
-          </h1>
-
-      {selectedCategory && <h1>
+   
+      {selectedCategory
+       && 
+       <h1>
         Similar Products
       </h1>}
 
