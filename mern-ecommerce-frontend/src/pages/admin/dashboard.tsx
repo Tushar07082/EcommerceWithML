@@ -40,7 +40,6 @@ const Dashboard = () => {
               <FaRegBell />
               <img src={user?.photo || userImg} alt="User" />
             </div>
-
             <section className="widget-container">
               <WidgetItem
                 percent={stats.changePercent.revenue}
@@ -69,7 +68,6 @@ const Dashboard = () => {
                 heading="Products"
               />
             </section>
-
             <section className="graph-container">
               <div className="revenue-chart">
                 <h2>Revenue & Transaction</h2>

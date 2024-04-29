@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import { RevenueData } from "../types/types.js";
 import { Product } from "../types/types.js";
 
 interface IUser extends Document {
@@ -12,6 +13,7 @@ interface IUser extends Document {
   dob: Date;
   createdAt: Date;
   updatedAt: Date;
+  monthlyData: RevenueData;
   productViewed: Map<string, number>; 
   recommendedProducts: Array<Product>;
   //   Virtual Attribute
@@ -52,6 +54,9 @@ const schema = new mongoose.Schema(
       type: Date,
       required: [true, "Please enter Date of birth"],
     },
+    revenueData: {
+      type: Object,
+    },
     productViewed: {
         type: Map,
         of: Number,
@@ -65,6 +70,7 @@ const schema = new mongoose.Schema(
   {
     timestamps: true,
   }
+  
 );
 
 schema.virtual("age").get(function () {

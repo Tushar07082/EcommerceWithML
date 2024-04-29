@@ -6,6 +6,7 @@ import {
   MessageResponse,
   UserResponse,
 } from "../../types/api-types";
+import { RevenueResponse, User } from "../../types/types";
 import { User, UserAndProduct } from "../../types/types";
 
 export const userAPI = createApi({
@@ -23,7 +24,7 @@ export const userAPI = createApi({
       }),
       invalidatesTags: ["users"],
     }),
-
+    
     deleteUser: builder.mutation<MessageResponse, DeleteUserRequest>({
       query: ({ userId, adminUserId }) => ({
         url: `${userId}?id=${adminUserId}`,
@@ -36,6 +37,10 @@ export const userAPI = createApi({
       query: (id) => `all?id=${id}`,
       providesTags: ["users"],
     }),
+    // revenue: builder.query<RevenueResponse, string>({
+    //   query: (id) => `revenueData?id=${id}`,
+    //   providesTags: ["users"],
+    // }),
     addProductViewed: builder.mutation<MessageResponse, UserAndProduct>({
       query: (data) => ({
         url: "addProductViewed",
@@ -58,5 +63,5 @@ export const getUser = async (id: string) => {
   }
 };
 
-export const { useLoginMutation, useAllUsersQuery, useDeleteUserMutation,useAddProductViewedMutation } =
+export const { useLoginMutation, useAllUsersQuery, useDeleteUserMutation,useAddProductViewedMutation,/* useRevenueQuery */ } =
   userAPI;

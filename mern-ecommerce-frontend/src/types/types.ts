@@ -72,7 +72,18 @@ type LatestTransaction = {
   quantity: number;
   status: string;
 };
+type monthlyData ={
+  month: string
+  revenue: string,
+}
 
+export type RevenueResponse= {
+  _id: string;
+  totalProfit: string;
+  totalRevenue: string;
+  totalExpenses: string;
+  monthlyData: Array<monthlyData>;
+}
 export type Stats = {
   categoryCount: Record<string, number>[];
   changePercent: CountAndChange;

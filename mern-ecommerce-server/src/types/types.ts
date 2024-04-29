@@ -12,10 +12,24 @@ export interface NewUserRequestBody {
 export interface NewProductRequestBody {
   name: string;
   category: string;
-  desc: string;
   price: number;
   stock: number;
+  desc: string;
+
 }
+type monthlyData ={
+  month: string
+  revenue: string,
+}
+
+export type RevenueData= {
+  _id: string;
+  totalProfit: string;
+  totalRevenue: string;
+  totalExpenses: string;
+  monthlyData: Array<monthlyData>;
+}
+  
 
 export type ControllerType = (
   req: Request,

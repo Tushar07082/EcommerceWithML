@@ -14,8 +14,10 @@ import {
   RiDashboardFill,
   RiShoppingBag3Fill,
 } from "react-icons/ri";
+
 import { Link, Location, useLocation } from "react-router-dom";
 import { IconType } from "react-icons";
+import { MdTipsAndUpdates } from "react-icons/md";
 
 const AdminSidebar = () => {
   const location = useLocation();
@@ -59,6 +61,7 @@ const AdminSidebar = () => {
             : {}
         }
       >
+        <h2>Logo.</h2>
         <DivOne location={location} />
         <DivTwo location={location} />
         <DivThree location={location} />
@@ -99,6 +102,12 @@ const DivOne = ({ location }: { location: Location }) => (
         url="/admin/transaction"
         text="Transaction"
         Icon={AiFillFileText}
+        location={location}
+      />
+      <Li
+        url="/admin/predictions"
+        text="Predictions"
+        Icon={MdTipsAndUpdates}
         location={location}
       />
     </ul>
